@@ -2,7 +2,7 @@
 """
 Created on Thu Jun  3 08:46:28 2021
 
-@author: krali
+@author: kralik
 """
 
 import numpy as np
@@ -83,16 +83,15 @@ def change_format(df):
         # skip rows where 'nazev' aren't 2 words exactly
         if len(slova) != 2:
             df.loc[df.index == i, ['komentář']] += '-- program selhal - nesprávný počet slov v názvu účtu'
-            pass
+            
         elif any(c in special_characters for c in slova[0]) or any(c in special_characters for c in slova[1]):
             df.loc[df.index == i, ['komentář']] += '-- program selhal - nepovolený znak v názvu účtu'
-            pass
+            
         else:
             if slova[0] in first_names:
                 # skip rows where 'nazev' contains two first names
                 if slova[1] in first_names:
                     df.loc[df.index == i, ['komentář']] += '-- program selhal - dvě křestní jména'
-                    pass
                 # success - 'nazev' contains lastName firstName
                 else:
                     df.loc[df.index == i, ['komentář']] += '-- automaticky zpracováno'
@@ -106,8 +105,6 @@ def change_format(df):
             # skip rows where 'nazev' contains no first name
             else:
                 df.loc[df.index == i, ['komentář']] += '-- program selhal - chybí křestní jméno'
-                pass
-            
     return df
 
 
